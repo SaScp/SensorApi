@@ -11,6 +11,7 @@ import ru.alex.restapipractic.dto.SensorDTO;
 import ru.alex.restapipractic.model.Sensor;
 import ru.alex.restapipractic.service.SensorService;
 import ru.alex.restapipractic.utill.ErrorResponse;
+import ru.alex.restapipractic.utill.ErrorUtils;
 import ru.alex.restapipractic.utill.SensorNotCreatedException;
 
 import java.time.LocalDateTime;
@@ -32,15 +33,7 @@ public class SensorController {
                                                          BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            StringBuilder builder = new StringBuilder();
-            List<FieldError> errors = bindingResult.getFieldErrors();
-            for (var i : errors){
-                builder.append(i.getField())
-                        .append("-")
-                        .append(i.getDefaultMessage())
-                        .append(";");
-            }
-            throw new SensorNotCreatedException(builder.toString());
+            ErrorUtils.returnErrorsSensorToClient(bindingResult);
         }
         if(service.findByName(sensorDTO.getName())!=null) {
             throw new SensorNotCreatedException("There is already such a sensor");

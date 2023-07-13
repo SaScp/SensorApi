@@ -1,5 +1,6 @@
 package ru.alex.restapipractic.Controllers;
 
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import ru.alex.restapipractic.service.SensorService;
 import ru.alex.restapipractic.utill.DataWithSensorErrorException;
 import ru.alex.restapipractic.utill.ErrorResponse;
 import ru.alex.restapipractic.dto.DataWithSensorDTO;
+import ru.alex.restapipractic.utill.ErrorUtils;
 import ru.alex.restapipractic.utill.SensorNotFoundException;
 
 import java.time.LocalDateTime;
@@ -32,18 +34,10 @@ public class DataWithSensorController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<HttpStatus> addData(@RequestBody DataWithSensorDTO dataWithSenorDTO,
+    public ResponseEntity<HttpStatus> addData(@RequestBody @Valid DataWithSensorDTO dataWithSenorDTO,
                                               BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            StringBuilder builder = new StringBuilder();
-            List<FieldError> errors = bindingResult.getFieldErrors();
-            for (var i : errors){
-                builder.append(i.getField())
-                        .append("-")
-                        .append(i.getDefaultMessage())
-                        .append(";");
-            }
-            throw new DataWithSensorErrorException(builder.toString());
+            ErrorUtils.returnErrorsDataWithSensorToClient(bindingResult);
         }
 
         if(service.findByName(dataWithSenorDTO.getSensor().getName()) == null) {

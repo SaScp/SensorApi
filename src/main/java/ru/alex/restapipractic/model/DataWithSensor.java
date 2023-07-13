@@ -18,7 +18,7 @@ public class DataWithSensor {
     @NotNull(message = "Value 'value' should be not null")
     @DecimalMin(value = "-99", message = "value should be minimum -99")
     @DecimalMax(value = "99", message = "value shouldn t be bigger 99")
-    private float value;
+    private Float value;
     @Column
     @NotNull(message = "Value 'raining' shoud be not null")
     private boolean raining;
@@ -31,6 +31,7 @@ public class DataWithSensor {
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "id")
     private Sensor sensor;
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -39,11 +40,11 @@ public class DataWithSensor {
         return id;
     }
 
-    public float getValue() {
+    public Float getValue() {
         return value;
     }
 
-    public void setValue(float value) {
+    public void setValue(Float value) {
         this.value = value;
     }
 
