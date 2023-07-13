@@ -24,6 +24,7 @@ public class DataWithSensor {
     private boolean raining;
     @Column
     private LocalDateTime time;
+
     @ManyToOne(cascade ={CascadeType.PERSIST,CascadeType.REMOVE, CascadeType.REFRESH})
     @JoinColumn(name = "sensor_id", referencedColumnName = "id")
     @JsonIdentityInfo(

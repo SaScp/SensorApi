@@ -31,7 +31,7 @@ public class SensorController {
     public ResponseEntity<HttpStatus> registrationSesnor(@RequestBody @Valid SensorDTO sensorDTO,
                                                          BindingResult bindingResult) {
 
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             StringBuilder builder = new StringBuilder();
             List<FieldError> errors = bindingResult.getFieldErrors();
             for (var i : errors){
@@ -42,9 +42,10 @@ public class SensorController {
             }
             throw new SensorNotCreatedException(builder.toString());
         }
-        if(service.findByName(sensorDTO.getName())!=null){
+        if(service.findByName(sensorDTO.getName())!=null) {
             throw new SensorNotCreatedException("There is already such a sensor");
         }
+
         service.save(convertSensorDTOToSensor(sensorDTO));
 
         return  ResponseEntity.ok(HttpStatus.OK);
@@ -66,10 +67,11 @@ public class SensorController {
        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    private SensorDTO convertSensorToSensorDTO(Sensor sensor){
+    private SensorDTO convertSensorToSensorDTO(Sensor sensor) {
         return modelMapper.map(sensor, SensorDTO.class);
     }
-    private Sensor convertSensorDTOToSensor(SensorDTO sensorDTO){
+
+    private Sensor convertSensorDTOToSensor(SensorDTO sensorDTO) {
         return modelMapper.map(sensorDTO, Sensor.class);
     }
 }

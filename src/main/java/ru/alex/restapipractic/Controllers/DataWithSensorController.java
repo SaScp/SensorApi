@@ -33,8 +33,8 @@ public class DataWithSensorController {
 
     @PostMapping("/add")
     public ResponseEntity<HttpStatus> addData(@RequestBody DataWithSensorDTO dataWithSenorDTO,
-                                              BindingResult bindingResult){
-        if (bindingResult.hasErrors()){
+                                              BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             StringBuilder builder = new StringBuilder();
             List<FieldError> errors = bindingResult.getFieldErrors();
             for (var i : errors){
@@ -46,7 +46,7 @@ public class DataWithSensorController {
             throw new DataWithSensorErrorException(builder.toString());
         }
 
-        if(service.findByName(dataWithSenorDTO.getSensor().getName()) == null){
+        if(service.findByName(dataWithSenorDTO.getSensor().getName()) == null) {
             throw new SensorNotFoundException();
         }
 
@@ -55,12 +55,12 @@ public class DataWithSensorController {
     }
 
     @GetMapping("/")
-    public List<DataWithSensorDTO> findAll(){
+    public List<DataWithSensorDTO> findAll() {
         return  data.findAll().stream().map(this::convertDataWithSensorToDataWithSensorDTO).collect(Collectors.toList());
     }
 
     @GetMapping("/rainyDaysCount")
-    public long findAllDayWithRain(){
+    public long findAllDayWithRain() {
         return data.findCountDayWithRain();
     }
 
@@ -84,7 +84,7 @@ public class DataWithSensorController {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    private DataWithSensorDTO convertDataWithSensorToDataWithSensorDTO(DataWithSensor dataWithSensor){
+    private DataWithSensorDTO convertDataWithSensorToDataWithSensorDTO(DataWithSensor dataWithSensor) {
         DataWithSensorDTO dto = modelMapper.map(dataWithSensor, DataWithSensorDTO.class);
 
         dto.setSensor(modelMapper.map(dataWithSensor.getSensor(), SensorDTO.class));
@@ -92,7 +92,7 @@ public class DataWithSensorController {
         return  dto;
     }
 
-    private DataWithSensor convertDataWithSensorDTOToDataWithSensor(DataWithSensorDTO dataWithSensorDTO){
+    private DataWithSensor convertDataWithSensorDTOToDataWithSensor(DataWithSensorDTO dataWithSensorDTO) {
         return modelMapper.map(dataWithSensorDTO, DataWithSensor.class);
     }
 

@@ -19,6 +19,7 @@ public class Sensor {
     private String name;
     @OneToMany(mappedBy = "sensor")
     private List<DataWithSensor> dataWithSenor;
+
     public void setId(Integer id) {
         this.id = id;
     }

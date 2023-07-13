@@ -11,6 +11,7 @@ public class DataWithSensorDTO {
     private boolean raining;
     @NotNull(message = "Value 'sensor' shoud be not null")
     private SensorDTO sensor;
+
     public float getValue() {
         return value;
     }

@@ -11,22 +11,21 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 public class SensorService {
-
     private final SensorRepository sensorRepository;
 
     public SensorService(SensorRepository sensorRepository) {
         this.sensorRepository = sensorRepository;
     }
 
-    public List<Sensor> findAll(){
+    public List<Sensor> findAll() {
         return sensorRepository.findAll();
     }
 @Transactional
-    public void save(Sensor sensor){
+    public void save(Sensor sensor) {
         sensorRepository.save(sensor);
     }
 
-   public Sensor findByName(String name){
+   public Sensor findByName(String name) {
         return sensorRepository.findByName(name).orElse(null);
     }
 }

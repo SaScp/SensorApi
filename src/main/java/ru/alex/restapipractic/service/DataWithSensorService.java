@@ -16,24 +16,29 @@ import java.util.stream.Collectors;
 public class DataWithSensorService {
     private final DataWithSensorRepository dataWithSensorRepository;
     private final SensorService service;
+
     public DataWithSensorService(DataWithSensorRepository dataWithSensorRepository, SensorService service) {
         this.dataWithSensorRepository = dataWithSensorRepository;
         this.service = service;
     }
 
-    public long findCountDayWithRain(){
+    public long findCountDayWithRain() {
        return dataWithSensorRepository
                .findAll()
                .stream()
                .filter(dataWithSenor -> dataWithSenor.isRaining() == true).count();
     }
-    public List<DataWithSensor> findAll(){
+
+    public List<DataWithSensor> findAll()  {
         return dataWithSensorRepository.findAll();
     }
+
     @Transactional
-    public void save(DataWithSensor dataWithSensor){
+    public void save(DataWithSensor dataWithSensor) {
+
         dataWithSensor.setSensor(service.findByName(dataWithSensor.getSensor().getName()));
         dataWithSensor.setTime(LocalDateTime.now());
+
         dataWithSensorRepository.save(dataWithSensor);
     }
 
