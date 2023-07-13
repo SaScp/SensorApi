@@ -21,11 +21,11 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/measurements")
-public class MeasurementsController {
+public class DataWithSensorController {
     private final ModelMapper modelMapper;
     private final DataWithSensorService data;
     private final SensorService service;
-    public MeasurementsController(ModelMapper modelMapper, DataWithSensorService data, SensorService service) {
+    public DataWithSensorController(ModelMapper modelMapper, DataWithSensorService data, SensorService service) {
         this.modelMapper = modelMapper;
         this.data = data;
         this.service = service;
