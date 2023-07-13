@@ -1,18 +1,16 @@
 package ru.alex.restapipractic.dto;
 
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 public class DataWithSensorDTO {
-    @Column
     @NotNull(message = "Value 'value' should be not null")
-    @Size(min = -99, max = 99, message = "value should be minimum -99 and maximum 99")
+    @DecimalMin(value = "-99", message = "value should be minimum -99")
+    @DecimalMax(value = "99", message = "value shouldn t be bigger 99")
     private float value;
-    @Column
     @NotNull(message = "Value 'raining' shoud be not null")
     private boolean raining;
-
+    @NotNull(message = "Value 'sensor' shoud be not null")
+    private SensorDTO sensor;
     public float getValue() {
         return value;
     }
@@ -27,5 +25,13 @@ public class DataWithSensorDTO {
 
     public void setRaining(boolean raining) {
         this.raining = raining;
+    }
+
+    public SensorDTO getSensor() {
+        return sensor;
+    }
+
+    public void setSensor(SensorDTO sensor) {
+        this.sensor = sensor;
     }
 }
